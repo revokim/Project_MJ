@@ -1,7 +1,7 @@
 ﻿namespace MJ
 {
     // particle의 종류에 관한 enum입니다.
-    public enum ParticleTypes
+    public enum CollectibleItemTypes
     {
         Exp,
         Credit,
