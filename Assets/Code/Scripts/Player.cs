@@ -8,5 +8,6 @@ namespace MJ.Player
 		private float _playerHP; //체력
 		private int _playerLevel; // 레벨
 		private float _playerExp; // 경험치
+		private float _playerMoveSpeed; // 이동 속도
     }
 }
