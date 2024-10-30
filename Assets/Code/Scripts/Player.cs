@@ -1,6 +1,8 @@
-﻿namespace MJ.Player
+﻿using UnityEngine;
+
+namespace MJ.Player
 {
-    public class Player
+    public class Player : MonoBehaviour
     {
 	    private float _playerAttackPower; // 공격력
 		private float _playerHP; //체력
