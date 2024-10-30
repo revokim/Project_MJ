@@ -1,4 +1,4 @@
-﻿namespace Code.Scripts
+﻿namespace MJ.Enemy
 {
     public class Enemy
     {

@@ -1,4 +1,4 @@
-﻿namespace Code.Scripts
+﻿namespace MJ.Player
 {
     public class Player
     {

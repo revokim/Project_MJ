@@ -1,4 +1,4 @@
-﻿namespace Code.Scripts
+﻿namespace MJ.Weapon
 {
     // 모든 종류의 무기에 공통적으로 들어가는 요소들을 지정합니다.
     public class Weapon
