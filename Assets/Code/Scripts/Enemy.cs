@@ -2,7 +2,7 @@
 {
     public class Enemy
     {
-        private int _atk; // 적 공격력
-        private int _hp; // 적 체력
+        private float _atk; // 적 공격력
+        private float _hp; // 적 체력
     }
 }
