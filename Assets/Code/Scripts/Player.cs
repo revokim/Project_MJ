@@ -1,13 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MJ.Player
 {
     public class Player : MonoBehaviour
     {
 	    private float _playerAttackPower; // 공격력
-		private float _playerHP; //체력
+		private float _playerHp; //체력
 		private int _playerLevel; // 레벨
 		private float _playerExp; // 경험치
-		private float _playerMoveSpeed; // 이동 속도
+	
+	    private Rigidbody _rigidbody;
+		private Vector3 _inputVec;// 인풋매니저 move 값
+		private float _playerMoveSpeed; // 플레이어 이동 속도
+
+		private void Awake()
+		{
+			_rigidbody = GetComponent<Rigidbody>();
+			_playerMoveSpeed = 5.0f;
+		}
+
+		private void FixedUpdate()
+		{
+			Vector3 nextMoveVec = _inputVec * (_playerMoveSpeed * Time.fixedDeltaTime);
+			_rigidbody.MovePosition(_rigidbody.position + nextMoveVec);
+		}
+
+		void OnMove(InputValue value) // InputManager wasd 값 벡터로 받기
+		{
+			_inputVec = value.Get<Vector2>();
+		}
     }
 }

@@ -1,0 +1,30 @@
+using System;
+using UnityEngine;
+
+namespace Code.Scripts
+{
+    public class FieldItems : MonoBehaviour 
+    {
+        public CollectibleItem collectibleItem; //아이템 변수  왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
+        public SpriteRenderer spriteRenderer;
+
+        public void SetItem(CollectibleItem _collectibleItem) //드롭 아이템 생성시 초기화
+        {
+            collectibleItem.itemName = _collectibleItem.itemName;
+            collectibleItem.itemImage = _collectibleItem.itemImage;
+            collectibleItem.collectibleItemType = _collectibleItem.collectibleItemType;
+            
+            spriteRenderer.sprite = collectibleItem.itemImage;
+        }
+
+        public CollectibleItem GetItem() //아이템 획득 시 아이템 변수 반환
+        {
+            return collectibleItem;
+        }
+
+        public void DestroyItem() //아이템 획득 시 드롭된 아이템 필드에서 삭제
+        {
+            Destroy(gameObject);
+        }
+    }
+}
