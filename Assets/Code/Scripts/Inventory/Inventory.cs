@@ -50,9 +50,8 @@ namespace Code.Scripts.Inventory
             return true;
         }
 
-        private void OnTriggerEnter(Collider collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log("item collision");
             if (collision.CompareTag("FieldWeapon"))
             {
                 FieldItems fielditems = collision.GetComponent<FieldItems>();

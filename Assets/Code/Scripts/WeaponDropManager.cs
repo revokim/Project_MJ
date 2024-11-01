@@ -18,14 +18,13 @@ namespace Code.Scripts
         private void Awake()
         {
             instance = this;
-            
         }
         private void Start()
         {
             for (var i = 0; i < 4; i++)
             {
                 GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
-                go.GetComponent<FieldItems>().SetItem(weaponDB[0]);
+                go.GetComponent<FieldItems>().SetItem(weaponDB[Random.Range(0, 2)]);
             }
         }
     }
