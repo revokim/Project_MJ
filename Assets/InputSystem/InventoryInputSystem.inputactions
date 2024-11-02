@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "MoveInventoryCursor",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6d65b720-2a6f-4552-8e87-9e69e5fcc829",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -37,48 +37,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "0afcd981-2a26-4458-8f64-460bcf646d32",
-                    "path": "<Keyboard>/downArrow",
+                    "name": "2D Vector",
+                    "id": "4cf461e4-4422-4d0d-a441-a18bca4fc3ed",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MoveInventoryCursor",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "34fd725d-d8d8-48eb-b425-5644ad22b8b5",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveInventoryCursor",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e4ebc9cd-92a4-4791-85a2-844a11f37fee",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveInventoryCursor",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "95533bd6-dfcf-47b2-9a2f-af69474c32c8",
+                    "name": "up",
+                    "id": "edbfc7cf-c5a1-4a93-9baf-d672d4fc0f9c",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MoveInventoryCursor",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "0b6bf2fe-05ed-428d-b61c-2ae44b02e206",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveInventoryCursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "4c7d954a-7304-4943-8281-a136959ba4f3",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveInventoryCursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "3169ef92-7226-4062-a64b-7284507652a0",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveInventoryCursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

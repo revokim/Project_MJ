@@ -21,7 +21,7 @@ namespace Code.Scripts
         }
         private void Start()
         {
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < 7; i++)
             {
                 GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
                 go.GetComponent<FieldItems>().SetItem(weaponDB[Random.Range(0, 2)]);
