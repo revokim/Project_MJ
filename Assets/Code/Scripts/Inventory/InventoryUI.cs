@@ -5,29 +5,47 @@ namespace Code.Scripts.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
-        private Inventory inven;
+        private Inventory _inven;
 
-        public Slot[] slots;
-        public Transform slotHolder;
+        public Slot[] inventorySlots;
+        public Transform inventorySlotHolder;
 
         private void Start()
         {
-            inven = Inventory.Instance;
-            slots = slotHolder.GetComponentsInChildren<Slot>();
-            inven.onInventoryItemChanged += RedrawSlotUI;
+            _inven = Inventory.Instance;
+            inventorySlots = inventorySlotHolder.GetComponentsInChildren<Slot>();
+            _inven.onInventoryItemChanged += RedrawSlotUI;
+            _inven.onInventorySlotCountChanged += InventorySlotChange;
         }
 
         private void RedrawSlotUI()
         {
-            foreach (var t in slots)
+            foreach (var t in inventorySlots)
             {
                 t.RemoveSlot();
             }
 
-            for (int i = 0; i < inven.inventoryWeapons.Count; i++)
+            for (int i = 0; i < _inven.inventoryWeapons.Count; i++)
             {
-                slots[i].weapon = inven.inventoryWeapons[i];
-                slots[i].UpdateSlotUi();
+                inventorySlots[i].weapon = _inven.inventoryWeapons[i];
+                inventorySlots[i].UpdateSlotUi();
+            }
+        }
+
+        private void InventorySlotChange(int val)
+        {
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                inventorySlots[i].Slotnum = i;
+                
+                if (i < val)
+                {
+                    inventorySlots[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    inventorySlots[i].gameObject.SetActive(false);
+                }
             }
         }
     }

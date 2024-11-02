@@ -8,13 +8,13 @@ namespace Code.Scripts
         public CollectibleItem collectibleItem; //아이템 변수  왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
         public SpriteRenderer spriteRenderer;
 
-        public void SetItem(CollectibleItem _collectibleItem) //드롭 아이템 생성시 초기화
+        public void SetItem(CollectibleItem collectibleItem) //드롭 아이템 생성시 초기화
         {
-            collectibleItem.itemName = _collectibleItem.itemName;
-            collectibleItem.itemImage = _collectibleItem.itemImage;
-            collectibleItem.collectibleItemType = _collectibleItem.collectibleItemType;
+            this.collectibleItem.itemName = collectibleItem.itemName;
+            this.collectibleItem.itemImage = collectibleItem.itemImage;
+            this.collectibleItem.collectibleItemType = collectibleItem.collectibleItemType;
             
-            spriteRenderer.sprite = collectibleItem.itemImage;
+            spriteRenderer.sprite = this.collectibleItem.itemImage;
         }
 
         public CollectibleItem GetItem() //아이템 획득 시 아이템 변수 반환
