@@ -19,12 +19,23 @@ namespace MJ.Enemy
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            // TODO: 실제 Player 객체의 태그로 변경 필요
-            if (!other.gameObject.CompareTag("Player")) return;
-            
-            var player = other.gameObject.GetComponent<Player.Player>();
-            Debug.Log("Player Hit!");
-            // player의 체력에서 _enemyAttackPower 만큼 차감
+            // TODO: 실제 객체의 태그로 변경 필요
+            if (other.gameObject.CompareTag("Player"))
+            {
+                onCollisionWithPlayer(other.gameObject.GetComponent<Player.Player>());
+            }
+            else if (other.gameObject.CompareTag("Weapon"))
+            {
+                onCollisionWithWeapon(other.gameObject.GetComponent<Weapon.Weapon>());
+            }
+        }
+
+        private void onCollisionWithPlayer(Player.Player player)
+        {
+        }
+
+        private void onCollisionWithWeapon(Weapon.Weapon weapon)
+        {
         }
     }
 }
