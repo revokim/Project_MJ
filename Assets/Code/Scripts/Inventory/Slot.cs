@@ -8,7 +8,13 @@ namespace Code.Scripts.Inventory
     {
         public CollectibleItem weapon;
         public Image weaponIcon;
+        private Image _slotImage;
         private int _slotNum;
+
+        private void Awake()
+        {
+            _slotImage = GetComponent<Image>();
+        }
 
         public int Slotnum
         {
@@ -16,7 +22,7 @@ namespace Code.Scripts.Inventory
             set { _slotNum = value; }
         }
         
-        public void UpdateSlotUi()
+        public void UpdateSlotItemUi()
         {
             weaponIcon.sprite = weapon.itemImage;
             Color color = weaponIcon.GetComponent<Image>().color;
@@ -25,6 +31,11 @@ namespace Code.Scripts.Inventory
             weaponIcon.gameObject.SetActive(true);
         }
 
+        public void UpdateSlotUi(Sprite slotImage)
+        {
+            _slotImage.sprite = slotImage;
+        }
+        
         public void RemoveSlot()
         {
             weapon = null;
