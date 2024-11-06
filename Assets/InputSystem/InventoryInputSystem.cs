@@ -44,6 +44,15 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwapWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""244e937d-0ef0-4515-ab80-3734d23b8724"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""MoveInventoryCursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed43d7f5-966b-452e-b32d-50b9e0e28a16"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwapWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_DropWeapon = m_Inventory.FindAction("DropWeapon", throwIfNotFound: true);
         m_Inventory_MoveInventoryCursor = m_Inventory.FindAction("MoveInventoryCursor", throwIfNotFound: true);
+        m_Inventory_SwapWeapon = m_Inventory.FindAction("SwapWeapon", throwIfNotFound: true);
     }
 
     ~@InventoryInputSystem()
@@ -190,12 +211,14 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
     private List<IInventoryActions> m_InventoryActionsCallbackInterfaces = new List<IInventoryActions>();
     private readonly InputAction m_Inventory_DropWeapon;
     private readonly InputAction m_Inventory_MoveInventoryCursor;
+    private readonly InputAction m_Inventory_SwapWeapon;
     public struct InventoryActions
     {
         private @InventoryInputSystem m_Wrapper;
         public InventoryActions(@InventoryInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @DropWeapon => m_Wrapper.m_Inventory_DropWeapon;
         public InputAction @MoveInventoryCursor => m_Wrapper.m_Inventory_MoveInventoryCursor;
+        public InputAction @SwapWeapon => m_Wrapper.m_Inventory_SwapWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Inventory; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +234,9 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
             @MoveInventoryCursor.started += instance.OnMoveInventoryCursor;
             @MoveInventoryCursor.performed += instance.OnMoveInventoryCursor;
             @MoveInventoryCursor.canceled += instance.OnMoveInventoryCursor;
+            @SwapWeapon.started += instance.OnSwapWeapon;
+            @SwapWeapon.performed += instance.OnSwapWeapon;
+            @SwapWeapon.canceled += instance.OnSwapWeapon;
         }
 
         private void UnregisterCallbacks(IInventoryActions instance)
@@ -221,6 +247,9 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
             @MoveInventoryCursor.started -= instance.OnMoveInventoryCursor;
             @MoveInventoryCursor.performed -= instance.OnMoveInventoryCursor;
             @MoveInventoryCursor.canceled -= instance.OnMoveInventoryCursor;
+            @SwapWeapon.started -= instance.OnSwapWeapon;
+            @SwapWeapon.performed -= instance.OnSwapWeapon;
+            @SwapWeapon.canceled -= instance.OnSwapWeapon;
         }
 
         public void RemoveCallbacks(IInventoryActions instance)
@@ -242,5 +271,6 @@ public partial class @InventoryInputSystem: IInputActionCollection2, IDisposable
     {
         void OnDropWeapon(InputAction.CallbackContext context);
         void OnMoveInventoryCursor(InputAction.CallbackContext context);
+        void OnSwapWeapon(InputAction.CallbackContext context);
     }
 }

@@ -8,7 +8,6 @@ namespace Code.Scripts
 {
     public class WeaponDropManager: MonoBehaviour //테스트용으로 무기 드랍
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         public static WeaponDropManager instance;
         
         public GameObject fieldItemPrefab;
