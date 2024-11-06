@@ -11,10 +11,10 @@ namespace MJ
         public int maxPoolSize = 30;
         public float spawnInterval = 2f;
 
-        private static List<Enemy.Enemy> enemyPool;
-        private float spawnTimer;
-        private Vector3 minWorldPoint;
-        private Vector3 maxWorldPoint;
+        private static List<Enemy.Enemy> _enemyPool;
+        private float _spawnTimer;
+        private Vector3 _minWorldPoint;
+        private Vector3 _maxWorldPoint;
 
         private void Awake()
         {
@@ -23,9 +23,9 @@ namespace MJ
 
         private void Start()
         {
-            minWorldPoint = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-            maxWorldPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
-            spawnTimer = spawnInterval;
+            _minWorldPoint = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+            _maxWorldPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+            _spawnTimer = spawnInterval;
         }
 
         private void Update()
@@ -35,28 +35,28 @@ namespace MJ
         
         private void SpawnEnemyEveryFrame()
         {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnInterval)
+            _spawnTimer += Time.deltaTime;
+            if (_spawnTimer >= spawnInterval)
             {
                 SpawnEnemy();
-                spawnTimer = 0;
+                _spawnTimer = 0;
             }
         }   
 
         private void InitializePool()
         {
-            enemyPool = new List<Enemy.Enemy>();
+            _enemyPool = new List<Enemy.Enemy>();
             for (int i = 0; i < poolSize; i++)
             {
                 Enemy.Enemy enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)]);
                 enemy.gameObject.SetActive(false);
-                enemyPool.Add(enemy);
+                _enemyPool.Add(enemy);
             }
         }
 
         private Enemy.Enemy GetPooledOneEnemy()
         {
-            foreach (var enemy in enemyPool)
+            foreach (var enemy in _enemyPool)
             {
                 if (!enemy.gameObject.activeSelf)
                 {
@@ -64,7 +64,7 @@ namespace MJ
                 }
             }
           
-            if (enemyPool.Count >= maxPoolSize)
+            if (_enemyPool.Count >= maxPoolSize)
             {
                 return null;
             }
@@ -72,7 +72,7 @@ namespace MJ
             int randomIndex = Random.Range(0, enemyPrefabs.Length);
             Enemy.Enemy newEnemy = Instantiate(enemyPrefabs[randomIndex]);
             newEnemy.gameObject.SetActive(false);
-            enemyPool.Add(newEnemy);
+            _enemyPool.Add(newEnemy);
 
             return newEnemy;
         }
@@ -81,8 +81,8 @@ namespace MJ
         {
             Enemy.Enemy enemy = GetPooledOneEnemy();
             if ((object) enemy == null) return;
-            var randomX = Random.Range(minWorldPoint.x, maxWorldPoint.x);
-            var randomY = Random.Range(minWorldPoint.y, maxWorldPoint.y);
+            var randomX = Random.Range(_minWorldPoint.x, _maxWorldPoint.x);
+            var randomY = Random.Range(_minWorldPoint.y, _maxWorldPoint.y);
             enemy.transform.position = new Vector3(randomX, randomY, 0);
             enemy.gameObject.SetActive(true);
         }
