@@ -243,6 +243,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 1946708195324943030, guid: 9dcf13d8e23aeef44aa8497dd8ad3f5d, type: 3}
   poolSize: 20
+  maxPoolSize: 30
   spawnInterval: 2
 --- !u!4 &1856194196
 Transform:

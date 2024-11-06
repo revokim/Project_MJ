@@ -8,6 +8,7 @@ namespace MJ
     {
         public Enemy.Enemy[] enemyPrefabs;
         public int poolSize = 20;
+        public int maxPoolSize = 30;
         public float spawnInterval = 2f;
 
         private static List<Enemy.Enemy> enemyPool;
@@ -29,13 +30,18 @@ namespace MJ
 
         private void Update()
         {
+            SpawnEnemyEveryFrame();
+        }
+        
+        private void SpawnEnemyEveryFrame()
+        {
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= spawnInterval)
             {
                 SpawnEnemy();
                 spawnTimer = 0;
             }
-        }
+        }   
 
         private void InitializePool()
         {
@@ -57,7 +63,12 @@ namespace MJ
                     return enemy;
                 }
             }
-
+          
+            if (enemyPool.Count >= maxPoolSize)
+            {
+                return null;
+            }
+            
             int randomIndex = Random.Range(0, enemyPrefabs.Length);
             Enemy.Enemy newEnemy = Instantiate(enemyPrefabs[randomIndex]);
             newEnemy.gameObject.SetActive(false);
@@ -69,6 +80,7 @@ namespace MJ
         private void SpawnEnemy()
         {
             Enemy.Enemy enemy = GetPooledOneEnemy();
+            if ((object) enemy == null) return;
             var randomX = Random.Range(minWorldPoint.x, maxWorldPoint.x);
             var randomY = Random.Range(minWorldPoint.y, maxWorldPoint.y);
             enemy.transform.position = new Vector3(randomX, randomY, 0);
