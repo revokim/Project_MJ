@@ -32,10 +32,12 @@ namespace MJ.Enemy
 
         private void onCollisionWithPlayer(Player.Player player)
         {
+            // 나의 _enemyAttackPower만큼 플레이어 체력 차감
         }
 
         private void onCollisionWithWeapon(Weapon.Weapon weapon)
         {
+            // weapon의 데미지만큼 나의 _enemyHp 차감
         }
     }
 }
