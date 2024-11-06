@@ -13,7 +13,7 @@ namespace MJ.Enemy
             var isEnemyDead = _enemyHp <= 0;
             if (isEnemyDead)
             {
-                killEnemy();
+                KillEnemy();
             }
         }
 
