@@ -15,6 +15,8 @@ namespace MJ.Enemy
             {
                 KillEnemy();
             }
+
+            MoveToPlayer(_enemyMoveSpeed);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
