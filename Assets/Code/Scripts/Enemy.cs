@@ -44,11 +44,11 @@ namespace MJ.Enemy
             {
                 Instantiate(collectibleExpPrefab, transform.position, Quaternion.identity);
             }
-            else if (randomValue <= expDropRate + creditDropRate)
+            if (randomValue <= creditDropRate)
             {
                 Instantiate(collectibleCreditPrefab, transform.position, Quaternion.identity);
-            }
-            else if (randomValue <= expDropRate + creditDropRate + weaponDropRate)
+            } 
+            if (randomValue <= weaponDropRate)
             {
                 Instantiate(collectibleWeaponPrefab, transform.position, Quaternion.identity);
             }
