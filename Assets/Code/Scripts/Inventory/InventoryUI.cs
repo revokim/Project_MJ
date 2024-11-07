@@ -55,7 +55,6 @@ namespace Code.Scripts.Inventory
             for (var i = 0; i < inventorySlots.Length; i++)
             {
                 inventorySlots[i].Slotnum = i;
-
                 inventorySlots[i].gameObject.SetActive(i < val);
             }
         }

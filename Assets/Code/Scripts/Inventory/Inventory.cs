@@ -89,7 +89,7 @@ namespace Code.Scripts.Inventory
             _bagSlotCount = 1;
         }
 
-        private bool AddItemToInventory(CollectibleItem weapon) //무기 인벤토리 리스트에 추가
+        public bool AddItemToInventory(CollectibleItem weapon) //무기 인벤토리 리스트에 추가
         {
             if (inventoryWeapons.Count < _inventorySlotCount) //인벤토리 슬롯 남으면 추가
             {
@@ -116,7 +116,8 @@ namespace Code.Scripts.Inventory
 
         private void RemoveItemFromBag(int index) //무기 가방 리스트에서 제거
         {
-            bagWeapons.RemoveAt(index);
+            
+            bagWeapons.RemoveAt(0);
             onInventoryItemChanged.Invoke();
         }
 
@@ -128,15 +129,17 @@ namespace Code.Scripts.Inventory
         }
 
         private void SwapWeapons() //인벤토리 아이템과 가방의 무기 교체
-        {
+        {   
+            if(bagWeapons.Count <= 0) return;
             (inventoryWeapons[_selectedSlotNum], bagWeapons[0]) = (bagWeapons[0], inventoryWeapons[_selectedSlotNum]);
             onInventoryItemChanged.Invoke();
         }
 
         private void OnDropWeaponPerformed(InputAction.CallbackContext context) //무기 버리기 입력 받기
         {
-            if(_selectedSlotNum >= 0) RemoveItemFromInventory(_selectedSlotNum);
-            else RemoveItemFromBag(_selectedSlotNum);
+            if(_selectedSlotNum >= 0 && inventoryWeapons.Count >= _selectedSlotNum + 1) RemoveItemFromInventory(_selectedSlotNum);
+            
+            if(_selectedSlotNum < 0 && bagWeapons.Count > 0) RemoveItemFromBag(_selectedSlotNum);
         }
 
         private void OnMoveInventoryCursorPerformed(InputAction.CallbackContext context) //상하좌우 인벤토리 커서 변경 입력 받기
@@ -158,14 +161,11 @@ namespace Code.Scripts.Inventory
             {
                 case > 0:
                     SelectedSlotNum += (SelectedSlotNum + 1 < InventorySlotCount)? 1 : 0;
-                    Debug.Log(SelectedSlotNum);
                     break;
                 case < 0:
                     SelectedSlotNum += (SelectedSlotNum + 1 > 1)? -1 : 0;
-                    Debug.Log(SelectedSlotNum);
                     break;
             }
-            Debug.Log(SelectedSlotNum);
         }
 
         private void OnSwapWeaponPerformed(InputAction.CallbackContext context) // 무기 변경 키가 눌러지면 무기 교체
@@ -173,15 +173,15 @@ namespace Code.Scripts.Inventory
             if(_selectedSlotNum >= 0) SwapWeapons();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision) //(임시: 무기 줍기 구현안함) 무기에 닿으면 리스트에 추가
-        {
-            if (!collision.CompareTag("FieldWeapon")) return;
-
-            var fielditems = collision.GetComponent<FieldItems>();
-            if (AddItemToInventory(fielditems.GetItem()))
-            {
-                fielditems.DestroyItem();
-            }
-        }
+        // private void OnTriggerEnter2D(Collider2D collision) //(임시: 무기 줍기 구현안함) 무기에 닿으면 리스트에 추가
+        // {
+        //     if (!collision.CompareTag("FieldWeapon")) return;
+        //
+        //     var fielditems = collision.GetComponent<FieldItems>();
+        //     if (AddItemToInventory(fielditems.GetItem()))
+        //     {
+        //         fielditems.DestroyItem();
+        //     }
+        // }
     }
 }

@@ -5,7 +5,7 @@ namespace Code.Scripts
 {
     public class FieldItems : MonoBehaviour 
     {
-        public CollectibleItem collectibleItem; //아이템 변수  왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
+        public CollectibleItem collectibleItem; //아이템 변수 왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
         public SpriteRenderer spriteRenderer;
 
         public void SetItem(CollectibleItem collectibleItem) //드롭 아이템 생성시 초기화
