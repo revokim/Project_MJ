@@ -20,7 +20,7 @@ namespace MJ.Enemy
             if ((object)_targetPlayer != null)
             {
                 var targetPosition = _targetPlayer.transform.position;
-                transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
                 var dir = targetPosition.x - transform.position.x;
                 if (dir < 0 && _isFacingRight) Flip();
