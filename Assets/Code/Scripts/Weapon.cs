@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEditor.TextCore.Text;
@@ -23,7 +24,7 @@ namespace MJ.Weapon
         public void Awake()
         {
             _attackDamage = 1.0f;
-            _weaponID = 1;
+            _weaponID = 0;
             AttackInterval = 1.0f;
         }
 
@@ -32,13 +33,13 @@ namespace MJ.Weapon
             switch (_weaponID)
             {
                 case 0 : // 무기가 롱소드 인 경우
+                    float attacktime = 0.3f;
                     timer += Time.deltaTime;
                     if (timer > AttackInterval)
                     {
                         timer = 0;
-                        LongswordAttack();
+                        StartCoroutine(LongswordAttack());
                     }
-
                     break;
                 case 1 : // 무기가 대포인 경우
                     timer += Time.deltaTime;
@@ -51,7 +52,7 @@ namespace MJ.Weapon
             }
             // foreach() 무기 list C.Attack()
         }
-        public void LongswordAttack()
+        private IEnumerator LongswordAttack()
         {
             const int piercing = -1; //근접무기이므로 관통수 무한
             const float bulletSpeed = 0.0f; // 근접무기 이므로 속도없음
@@ -59,12 +60,8 @@ namespace MJ.Weapon
             bullet.GetComponent<Bullet>().Init(_weaponID, _attackDamage, piercing, bulletSpeed, new Vector3(0,0,0));
             bullet.transform.position = new Vector2(0,0); // 플레이어 코드랑 합칠때 수정해야함 플레이어 위치로
             float attackTime = 0.3f; // 애니메이션 재생시간, 추후 수정
-            timer += Time.deltaTime;
-            if (timer > attackTime)
-            {
-                gameObject.SetActive(false);
-                timer = 0;
-            }
+            yield return new WaitForSeconds(attackTime);
+            BulletPool.Instance.ReturnBullet(0, bullet);
         }
 
         public void CannonAttack()
