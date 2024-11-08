@@ -1,37 +1,46 @@
 using System;
 using UnityEngine;
 
-namespace Code.Scripts
+namespace MJ.Weapon
 {
     public class Bullet : MonoBehaviour
     {
+        private int _weaponID; // 무기 아이디랑 같음
         private float _attackDamage; // 무기 데미지
         private int _piercing; // 관통 횟수
-        private float _bulletSpeed = 10.0f; // 총알 속도
+        private float _bulletSpeed; // 총알 속도
         private Rigidbody2D _rigidbody;
-        public void Init(float attackDamage, int piercing, Vector3 dir)
+        public void Init(int weaponID, float attackDamage, int piercing, float bulletSpeed, Vector3 direction)
         {
+            this._weaponID = weaponID;
             this._attackDamage = attackDamage;
             this._piercing = piercing;
-            _rigidbody.velocity = dir * _bulletSpeed;
+            this._bulletSpeed = bulletSpeed;
+            if (_rigidbody != null)
+            {
+                _rigidbody.linearVelocity = direction * _bulletSpeed; // 방향과 속도를 곱하여 이동
+            }
         }
 
-        private void Start()
+        private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.gravityScale = 0;
+        }
+        
+        private void ReturnToPool()
+        {
+            BulletPool.Instance.ReturnBullet(_weaponID, gameObject);
         }
 
         void OnTriggerEnter2D(Collider2D collision)
         {
             if (!collision.CompareTag("Enemy") || _piercing == -1)
                 return;
-
             _piercing--;
-
-            if (_piercing == -1) {
-                _rigidbody.velocity = Vector2.zero;
-                gameObject.SetActive(false);
+            if (_piercing == -1)
+            {
+                ReturnToPool();
             }
         }
     }
