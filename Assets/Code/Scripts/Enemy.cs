@@ -7,6 +7,8 @@ namespace MJ.Enemy
         public float EnemyAttackPower { get; set; } // 적 공격력
         public float EnemyHp { get; set; } // 적 체력
         public float EnemyMoveSpeed { get; set; } // 적 이동속도
+        private GameObject _targetPlayer;
+        private bool _isFacingRight = true;
         
         // 드랍 확률 (예시: 0.5는 50% 확률)
         [SerializeField] private float expDropRate = 0.7f;
@@ -31,24 +33,7 @@ namespace MJ.Enemy
             if (collectibleWeaponPrefab == null)
                 collectibleWeaponPrefab = Resources.Load("Prefabs/CollectibleWeaponPrefab") as GameObject;
         }
-
-        // 적이 데미지를 받고 사망하는 로직
-        public void EnemyTakeDamage(int damage)
-        {
-            EnemyHp -= damage;
-            if (EnemyHp <= 0)
-            {
-                EnemyDie();
-            }
-        }
-
-        // 적 사망 처리
-        private void EnemyDie()
-        {
-            EnemyDropItem();
-            Destroy(gameObject); // 적을 제거
-        }
-
+        
         // 아이템 드랍 처리
         private void EnemyDropItem()
         {
@@ -105,11 +90,6 @@ namespace MJ.Enemy
             // 적절한 위치를 찾지 못하면 범위 안 랜덤 위치 반환
             return basePosition + Random.insideUnitSphere * _dropRadius;
         }
-        private float _enemyAttackPower; // 적 공격력
-        private float _enemyHp; // 적 체력
-        private float _enemyMoveSpeed; // 적 이동속도
-        private GameObject _targetPlayer;
-        private bool _isFacingRight = true;
 
         private void Start()
         {
@@ -131,6 +111,7 @@ namespace MJ.Enemy
 
         protected void KillEnemy()
         {
+            EnemyDropItem();
             SpawnEnemyManager.ReturnToPool(this);
             // TODO: 적 죽음 이벤트 발행
         }
