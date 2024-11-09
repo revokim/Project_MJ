@@ -20,6 +20,17 @@ namespace MJ.Enemy
         
         private float _dropRadius = 1.0f;  // 아이템을 찾을 반경
         private int _maxAttempts = 10; // 최대 빈 공간 탐색 횟수
+        
+        private void Awake()
+        {
+            // 드랍할 아이템 프리팹 연결
+            if (collectibleExpPrefab == null)
+                collectibleExpPrefab = Resources.Load("Prefabs/CollectibleExpPrefab") as GameObject;
+            if (collectibleCreditPrefab == null)
+                collectibleCreditPrefab = Resources.Load("Prefabs/CollectibleCreditPrefab") as GameObject;
+            if (collectibleWeaponPrefab == null)
+                collectibleWeaponPrefab = Resources.Load("Prefabs/CollectibleWeaponPrefab") as GameObject;
+        }
 
         // 적이 데미지를 받고 사망하는 로직
         public void EnemyTakeDamage(int damage)
