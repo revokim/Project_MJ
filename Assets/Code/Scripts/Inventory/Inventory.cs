@@ -8,8 +8,7 @@ namespace Code.Scripts.Inventory
     public class Inventory : MonoBehaviour
     {
         private static Inventory _instance = null; //singleton
-
-        //델리게이트들
+        
         public delegate void OnInventorySlotCountChanged(int val); //인벤토리 슬롯 개수가 변경되면 실행
 
         public OnInventorySlotCountChanged onInventorySlotCountChanged;
@@ -89,7 +88,7 @@ namespace Code.Scripts.Inventory
             _bagSlotCount = 1;
         }
 
-        public bool AddItemToInventory(CollectibleItem weapon) //무기 인벤토리 리스트에 추가
+        public bool AddItemToInventory(CollectibleItem weapon) 
         {
             if (inventoryWeapons.Count < _inventorySlotCount) //인벤토리 슬롯 남으면 추가
             {
@@ -107,14 +106,14 @@ namespace Code.Scripts.Inventory
             return false; //남는 슬롯이 없어서 추가 실패
         }
 
-        private void RemoveItemFromInventory(int index) //무기 인벤토리 리스트에서 제거
+        private void RemoveItemFromInventory(int index) 
         {
             inventoryWeapons.RemoveAt(index);
             BagToInventory();
             onInventoryItemChanged.Invoke(); //델리게이트로 ui쪽에 리스트 변경유무 알려줌
         }
 
-        private void RemoveItemFromBag(int index) //무기 가방 리스트에서 제거
+        private void RemoveItemFromBag(int index) 
         {
             
             bagWeapons.RemoveAt(0);
@@ -168,7 +167,7 @@ namespace Code.Scripts.Inventory
             }
         }
 
-        private void OnSwapWeaponPerformed(InputAction.CallbackContext context) // 무기 변경 키가 눌러지면 무기 교체
+        private void OnSwapWeaponPerformed(InputAction.CallbackContext context) // 무기 변경 입력 받기
         {
             if(_selectedSlotNum >= 0) SwapWeapons();
         }
