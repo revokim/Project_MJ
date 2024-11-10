@@ -9,9 +9,9 @@ namespace MJ.ItemPickupManager
         private List<FieldItems.FieldItems> _itemsInScope; //주울 수 있는 범위 내에 들어온 무기 리스트
         private GameObject _letterEIcon; //무기 
         private Inventory.Inventory _inven;
-        
+
         private InventoryInputSystem _inventoryInputSystem;
-        
+
         private void OnEnable()
         {
             _inventoryInputSystem.Enable();
@@ -47,14 +47,14 @@ namespace MJ.ItemPickupManager
             {
                 if (!_letterEIcon.activeSelf)
                     _letterEIcon.SetActive(true);
-            
+
                 // F키를 누르면
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     // 가장 가까운 아이템을 찾아 그 아이템을 획득한다.
                     var playerPos = gameObject.transform.position;
                     var nearestItem = _itemsInScope[0];
-                    for (var i = 1; i < _itemsInScope.Count; ++i)  
+                    for (var i = 1; i < _itemsInScope.Count; ++i)
                     {
                         if (Vector3.Distance(playerPos, nearestItem.transform.position) >
                             Vector3.Distance(playerPos, _itemsInScope[i].transform.position))
@@ -62,7 +62,7 @@ namespace MJ.ItemPickupManager
                             nearestItem = _itemsInScope[i];
                         }
                     }
-                    
+
                     if (_inven.AddItemToInventory(nearestItem.GetItem()))
                     {
                         _itemsInScope.Remove(nearestItem);
@@ -72,7 +72,7 @@ namespace MJ.ItemPickupManager
             }
         }
 
-        
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var item = collision.GetComponent<FieldItems.FieldItems>();

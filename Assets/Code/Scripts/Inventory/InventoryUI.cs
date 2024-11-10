@@ -42,7 +42,7 @@ namespace MJ.InventoryUI
                 inventorySlots[i].weapon = _inven.inventoryWeapons[i];
                 inventorySlots[i].UpdateSlotItemUi();
             }
-            
+
             for (int i = 0; i < _inven.bagWeapons.Count; i++)
             {
                 bagSlots[i].weapon = _inven.bagWeapons[i];

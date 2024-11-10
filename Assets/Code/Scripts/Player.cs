@@ -13,7 +13,7 @@ namespace MJ
         private Rigidbody2D _rigidbody2D;
         private Vector3 _inputVec; // 인풋매니저 move 값
         private float _playerMoveSpeed; // 플레이어 이동 속도
-        
+
         private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();

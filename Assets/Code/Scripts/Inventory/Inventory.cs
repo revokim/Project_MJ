@@ -8,7 +8,7 @@ namespace MJ.Inventory
     public class Inventory : MonoBehaviour
     {
         private static Inventory _instance = null; //singleton
-        
+
         public delegate void OnInventorySlotCountChanged(int val); //인벤토리 슬롯 개수가 변경되면 실행
 
         public OnInventorySlotCountChanged onInventorySlotCountChanged;
@@ -17,12 +17,15 @@ namespace MJ.Inventory
 
         public OnInventoryItemChanged onInventoryItemChanged;
 
-        public delegate void OnInventoryCursorChanged(int val1, int val2);//슬롯 지정하는 커서가 바뀌면 실행
+        public delegate void OnInventoryCursorChanged(int val1, int val2); //슬롯 지정하는 커서가 바뀌면 실행
 
         public OnInventoryCursorChanged onInvetoryCursorChanged;
 
-        public List<CollectibleItem.CollectibleItem> inventoryWeapons = new List<CollectibleItem.CollectibleItem>(); //인벤토리 무기 리스트
-        public List<CollectibleItem.CollectibleItem> bagWeapons = new List<CollectibleItem.CollectibleItem>(); //가방 무기 리스트
+        public List<CollectibleItem.CollectibleItem>
+            inventoryWeapons = new List<CollectibleItem.CollectibleItem>(); //인벤토리 무기 리스트
+
+        public List<CollectibleItem.CollectibleItem>
+            bagWeapons = new List<CollectibleItem.CollectibleItem>(); //가방 무기 리스트
 
         private int _bagSlotCount; // 가방 슬롯의 개수
         private int _inventorySlotCount; //인벤토리 슬롯의 개수
@@ -88,7 +91,7 @@ namespace MJ.Inventory
             _bagSlotCount = 1;
         }
 
-        public bool AddItemToInventory(CollectibleItem.CollectibleItem weapon) 
+        public bool AddItemToInventory(CollectibleItem.CollectibleItem weapon)
         {
             if (inventoryWeapons.Count < _inventorySlotCount) //인벤토리 슬롯 남으면 추가
             {
@@ -103,19 +106,19 @@ namespace MJ.Inventory
                 onInventoryItemChanged.Invoke(); //델리게이트로 ui쪽에 리스트 변경유무 알려줌
                 return true;
             }
+
             return false; //남는 슬롯이 없어서 추가 실패
         }
 
-        private void RemoveItemFromInventory(int index) 
+        private void RemoveItemFromInventory(int index)
         {
             inventoryWeapons.RemoveAt(index);
             BagToInventory();
             onInventoryItemChanged.Invoke(); //델리게이트로 ui쪽에 리스트 변경유무 알려줌
         }
 
-        private void RemoveItemFromBag(int index) 
+        private void RemoveItemFromBag(int index)
         {
-            
             bagWeapons.RemoveAt(0);
             onInventoryItemChanged.Invoke();
         }
@@ -128,28 +131,29 @@ namespace MJ.Inventory
         }
 
         private void SwapWeapons() //인벤토리 아이템과 가방의 무기 교체
-        {   
-            if(bagWeapons.Count <= 0) return;
+        {
+            if (bagWeapons.Count <= 0) return;
             (inventoryWeapons[_selectedSlotNum], bagWeapons[0]) = (bagWeapons[0], inventoryWeapons[_selectedSlotNum]);
             onInventoryItemChanged.Invoke();
         }
 
         private void OnDropWeaponPerformed(InputAction.CallbackContext context) //무기 버리기 입력 받기
         {
-            if(_selectedSlotNum >= 0 && inventoryWeapons.Count >= _selectedSlotNum + 1) RemoveItemFromInventory(_selectedSlotNum);
-            
-            if(_selectedSlotNum < 0 && bagWeapons.Count > 0) RemoveItemFromBag(_selectedSlotNum);
+            if (_selectedSlotNum >= 0 && inventoryWeapons.Count >= _selectedSlotNum + 1)
+                RemoveItemFromInventory(_selectedSlotNum);
+
+            if (_selectedSlotNum < 0 && bagWeapons.Count > 0) RemoveItemFromBag(_selectedSlotNum);
         }
 
         private void OnMoveInventoryCursorPerformed(InputAction.CallbackContext context) //상하좌우 인벤토리 커서 변경 입력 받기
         {
             var input = context.ReadValue<Vector2>();
             _preSelectedItemNum = SelectedSlotNum;
-            
+
             switch (input.y)
             {
                 case > 0:
-                    SelectedSlotNum = (SelectedSlotNum < 0)?0:SelectedSlotNum; ;
+                    SelectedSlotNum = (SelectedSlotNum < 0) ? 0 : SelectedSlotNum;
                     break;
                 case < 0:
                     SelectedSlotNum = -1;
@@ -159,17 +163,17 @@ namespace MJ.Inventory
             switch (input.x)
             {
                 case > 0:
-                    SelectedSlotNum += (SelectedSlotNum + 1 < InventorySlotCount)? 1 : 0;
+                    SelectedSlotNum += (SelectedSlotNum + 1 < InventorySlotCount) ? 1 : 0;
                     break;
                 case < 0:
-                    SelectedSlotNum += (SelectedSlotNum + 1 > 1)? -1 : 0;
+                    SelectedSlotNum += (SelectedSlotNum + 1 > 1) ? -1 : 0;
                     break;
             }
         }
 
         private void OnSwapWeaponPerformed(InputAction.CallbackContext context) // 무기 변경 입력 받기
         {
-            if(_selectedSlotNum >= 0) SwapWeapons();
+            if (_selectedSlotNum >= 0) SwapWeapons();
         }
 
         // private void OnTriggerEnter2D(Collider2D collision) //(임시: 무기 줍기 구현안함) 무기에 닿으면 리스트에 추가

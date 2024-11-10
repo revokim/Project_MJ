@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MJ.FieldItems
 {
-    public class FieldItems : MonoBehaviour 
+    public class FieldItems : MonoBehaviour
     {
         public CollectibleItem.CollectibleItem collectibleItem; //아이템 변수 왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
         public SpriteRenderer spriteRenderer;
@@ -14,7 +14,7 @@ namespace MJ.FieldItems
             this.collectibleItem.itemName = collectibleItem.itemName;
             this.collectibleItem.itemImage = collectibleItem.itemImage;
             this.collectibleItem.collectibleItemType = collectibleItem.collectibleItemType;
-            
+
             spriteRenderer.sprite = this.collectibleItem.itemImage;
         }
 
