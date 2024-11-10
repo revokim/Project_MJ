@@ -2,14 +2,14 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Code.Scripts.Inventory
+namespace MJ.InventoryUI
 {
     public class InventoryUI : MonoBehaviour
     {
-        private Inventory _inven;
+        private Inventory.Inventory _inven;
 
-        public Slot[] inventorySlots;
-        public Slot[] bagSlots;
+        public Slot.Slot[] inventorySlots;
+        public Slot.Slot[] bagSlots;
         public Transform inventorySlotHolder;
         public Transform bagSlotHolder;
         public Sprite selectedSlotImage;
@@ -17,9 +17,9 @@ namespace Code.Scripts.Inventory
 
         private void Start()
         {
-            _inven = Inventory.Instance;
-            inventorySlots = inventorySlotHolder.GetComponentsInChildren<Slot>();
-            bagSlots = bagSlotHolder.GetComponentsInChildren<Slot>();
+            _inven = Inventory.Inventory.Instance;
+            inventorySlots = inventorySlotHolder.GetComponentsInChildren<Slot.Slot>();
+            bagSlots = bagSlotHolder.GetComponentsInChildren<Slot.Slot>();
             _inven.onInventoryItemChanged += RedrawSlotUI;
             _inven.onInventorySlotCountChanged += InventorySlotChange;
             _inven.onInvetoryCursorChanged += RedrawCursorUI;

@@ -1,14 +1,15 @@
 using System;
+using MJ;
 using UnityEngine;
 
-namespace Code.Scripts
+namespace MJ.FieldItems
 {
     public class FieldItems : MonoBehaviour 
     {
-        public CollectibleItem collectibleItem; //아이템 변수 왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
+        public CollectibleItem.CollectibleItem collectibleItem; //아이템 변수 왜 이거를 프라이빗으로 하면 오류가 나죠!!! ㅜㅜ
         public SpriteRenderer spriteRenderer;
 
-        public void SetItem(CollectibleItem collectibleItem) //드롭 아이템 생성시 초기화
+        public void SetItem(CollectibleItem.CollectibleItem collectibleItem) //드롭 아이템 생성시 초기화
         {
             this.collectibleItem.itemName = collectibleItem.itemName;
             this.collectibleItem.itemImage = collectibleItem.itemImage;
@@ -17,7 +18,7 @@ namespace Code.Scripts
             spriteRenderer.sprite = this.collectibleItem.itemImage;
         }
 
-        public CollectibleItem GetItem() //아이템 획득 시 아이템 변수 반환
+        public CollectibleItem.CollectibleItem GetItem() //아이템 획득 시 아이템 변수 반환
         {
             return collectibleItem;
         }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Code.Scripts
+namespace MJ
 {
     public class Player : MonoBehaviour
     {

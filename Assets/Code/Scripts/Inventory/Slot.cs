@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
 
-namespace Code.Scripts.Inventory
+namespace MJ.Slot
 {
     public class Slot : MonoBehaviour
     {
-        public CollectibleItem weapon;
+        public CollectibleItem.CollectibleItem weapon;
         public Image weaponIcon;
         private Image _slotImage;
         private int _slotNum;
@@ -21,7 +21,8 @@ namespace Code.Scripts.Inventory
             get { return _slotNum; }
             set { _slotNum = value; }
         }
-        
+
+        // ReSharper disable Unity.PerformanceAnalysis
         public void UpdateSlotItemUi()
         {
             weaponIcon.sprite = weapon.itemImage;
@@ -35,7 +36,7 @@ namespace Code.Scripts.Inventory
         {
             _slotImage.sprite = slotImage;
         }
-        
+
         public void RemoveSlot()
         {
             weapon = null;
@@ -44,6 +45,5 @@ namespace Code.Scripts.Inventory
             color.a = 0.0f;
             weaponIcon.GetComponent<Image>().color = color;
         }
-    
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Code.Scripts.Inventory
+namespace MJ.Inventory
 {
     public class Inventory : MonoBehaviour
     {
@@ -21,8 +21,8 @@ namespace Code.Scripts.Inventory
 
         public OnInventoryCursorChanged onInvetoryCursorChanged;
 
-        public List<CollectibleItem> inventoryWeapons = new List<CollectibleItem>(); //인벤토리 무기 리스트
-        public List<CollectibleItem> bagWeapons = new List<CollectibleItem>(); //가방 무기 리스트
+        public List<CollectibleItem.CollectibleItem> inventoryWeapons = new List<CollectibleItem.CollectibleItem>(); //인벤토리 무기 리스트
+        public List<CollectibleItem.CollectibleItem> bagWeapons = new List<CollectibleItem.CollectibleItem>(); //가방 무기 리스트
 
         private int _bagSlotCount; // 가방 슬롯의 개수
         private int _inventorySlotCount; //인벤토리 슬롯의 개수
@@ -88,7 +88,7 @@ namespace Code.Scripts.Inventory
             _bagSlotCount = 1;
         }
 
-        public bool AddItemToInventory(CollectibleItem weapon) 
+        public bool AddItemToInventory(CollectibleItem.CollectibleItem weapon) 
         {
             if (inventoryWeapons.Count < _inventorySlotCount) //인벤토리 슬롯 남으면 추가
             {

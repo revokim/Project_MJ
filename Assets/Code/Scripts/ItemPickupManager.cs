@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.Scripts
+namespace MJ.ItemPickupManager
 {
     public class ItemPickupManager : MonoBehaviour
     {
-        private List<FieldItems> _itemsInScope; //주울 수 있는 범위 내에 들어온 무기 리스트
+        private List<FieldItems.FieldItems> _itemsInScope; //주울 수 있는 범위 내에 들어온 무기 리스트
         private GameObject _letterEIcon; //무기 
         private Inventory.Inventory _inven;
         
@@ -24,7 +24,7 @@ namespace Code.Scripts
 
         private void Awake()
         {
-            _itemsInScope = new List<FieldItems>();
+            _itemsInScope = new List<FieldItems.FieldItems>();
             _letterEIcon = gameObject.transform.Find("LetterEIcon").gameObject;
             _inventoryInputSystem = new InventoryInputSystem();
         }
@@ -75,7 +75,7 @@ namespace Code.Scripts
         
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var item = collision.GetComponent<FieldItems>();
+            var item = collision.GetComponent<FieldItems.FieldItems>();
             if (item != null && !_itemsInScope.Contains(item))
             {
                 _itemsInScope.Add(item);
@@ -84,7 +84,7 @@ namespace Code.Scripts
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            var item = collision.GetComponent<FieldItems>();
+            var item = collision.GetComponent<FieldItems.FieldItems>();
             if (item != null && _itemsInScope.Contains(item))
             {
                 _itemsInScope.Remove(item);
