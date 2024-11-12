@@ -1,18 +1,16 @@
-﻿// 맵 상에 드랍되는 경험치, 재화, 장비를 다루는 클래스입니다.
+﻿using MJ;
+using MJ.EnumTypes;
 using UnityEngine;
 
 namespace MJ.CollectibleItem
 {
-    public class CollectibleItem : MonoBehaviour
+    [System.Serializable]
+    public class CollectibleItem
     {
-        public CollectibleItemTypes _collectibleItemType {get; set;} // 타입
-
-        // 아이템이 수집될 때 호출되는 메서드
-        public void Collect()
-        {
-            // collider 관련 코드 및 프리팹에서 collider 설정 필요 : todo
-            // 수집 처리 로직 (예: 플레이어의 경험치 증가, 재화 증가 등) : todo
-            Destroy(gameObject);
-        }
+        public CollectibleItemTypes collectibleItemType; // 타입
+        public string itemName; // 이름
+        public Sprite itemImage; // 아이템이미지
+        
+        public CollectibleItemTypes CollectibleItemType {get; set;} // 타입
     }
 }
