@@ -12,8 +12,8 @@ namespace MJ
         
         [Header("Player Info")]
         public int level;
-        public int exp;
-        public int[] nextExp = {10, 30 ,60, 100, 150, 210, 280, 360, 450, 600};
+        public float exp;
+        public float[] nextExp = {10, 30 ,60, 100, 150, 210, 280, 360, 450, 600};
 
         [Header("Game Object")]
         public Player.Player player; //풀레이어 게임오브젝트는 게임매니저를 통해 가져오기
