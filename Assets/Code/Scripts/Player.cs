@@ -9,10 +9,12 @@ namespace MJ.Player
         private float _playerHp; //체력
         private int _playerLevel; // 레벨
         private float _playerExp; // 경험치
-
+        
         private Rigidbody2D _rigidbody2D;
         private Vector3 _inputVec; // 인풋매니저 move 값
         private float _playerMoveSpeed; // 플레이어 이동 속도
+        
+        public int[] nextExp = {10, 30, 60, 100, 150, 210, 280, 360, 450, 600};
         
         private void Awake()
         {
@@ -35,6 +37,7 @@ namespace MJ.Player
 
         // 플레이어 스탯 관련 프로퍼티
         public float playerAttackPower { get; set; }
+        
         public float playerHp
         {
             get { return _playerHp; }
@@ -48,8 +51,16 @@ namespace MJ.Player
                 }
             }
         }
-        public int playerLevel { get; set; }
-        public float playerExp { get; set; }
+        public int playerLevel
+        {
+            get => _playerLevel;
+            private set => _playerLevel = value;
+        }
+        public float playerExp
+        {
+            get => _playerExp;
+            private set => _playerExp = value;
+        }
         public float playerMoveSpeed { get; set; }
 
         private void InitializePlayerStats()
@@ -82,6 +93,23 @@ namespace MJ.Player
         {
             // 체력 감소
             playerHp -= damage;
+        }
+        
+        public void AddExp(float expAmount)
+        {
+            playerExp += expAmount;
+            if (playerExp >= nextExp[playerLevel])
+            {
+                LevelUp();
+            }
+        }
+
+        private void LevelUp()
+        {
+            playerLevel++;
+            playerExp = 0;
+
+            GameManager.Instance.OnPlayerLevelUp();
         }
     }
 }

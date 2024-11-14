@@ -1,46 +1,96 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace MJ
 {
     public class GameManager : MonoBehaviour
     {
-        
-        public static GameManager Instance;
         [Header("Game Control")]
-        public float gameTime;
+        public static GameManager Instance;
         
-        [Header("Player Info")]
-        public int level;
-        public float exp;
-        public float[] nextExp = {10, 30 ,60, 100, 150, 210, 280, 360, 450, 600};
+        [Header("Game Data")]
+        public float gameTime;
 
-        [Header("Game Object")]
-        public Player.Player player; //풀레이어 게임오브젝트는 게임매니저를 통해 가져오기
+        [Header("UI Elements")]
+        public TextMeshProUGUI timerText;
+        public GameObject expItemPrefab;
+        public Transform expGenArea;
+        public Player.Player player;
+        
+        private bool _isGamePaused;
+        
         private void Awake()
         {
             Instance = this;
         }
 
-        private void Start() // 인게임 시작 시 호출
+        private void Start()
         {
             StartGame();
         }
-        public void StartGame()
+
+        private void Update()
         {
-            // 게임 시작 이벤트 호출
-            GameEvents.TriggerGameStart();
+            if (!_isGamePaused)
+            {
+                gameTime += Time.deltaTime;
+                UpdateTimerUI();
+            }
         }
 
-        public void GetExp()
+        private void UpdateTimerUI()
         {
-            exp++;
-            
-            if (exp == nextExp[level])
-            {
-                level++;
-                exp = 0;
-            }
+            TimeSpan timeSpan = TimeSpan.FromSeconds(gameTime);
+            timerText.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+        }
+
+        public void StartGame()
+        {
+            GameEvents.TriggerGameStart();
+            gameTime = 0f;
+            _isGamePaused = false;
+        }
+
+        public void PauseGame()
+        {
+            _isGamePaused = true;
+        }
+
+        public void ResumeGame()
+        {
+            _isGamePaused = false;
+        }
+        
+        public void GenerateExpItem()
+        {
+            Vector3 randomViewportPosition = new Vector3(
+                UnityEngine.Random.Range(0.1f, 0.9f),
+                UnityEngine.Random.Range(0.1f, 0.9f),
+                Camera.main.nearClipPlane + 1 
+            );
+
+            Vector3 worldPosition = Camera.main.ViewportToWorldPoint(randomViewportPosition);
+
+            Instantiate(expItemPrefab, worldPosition, Quaternion.identity);
+        }
+
+
+        public void OnPlayerLevelUp()
+        {
+            _isGamePaused = true;
+            ShowLevelUpOptions();
+        }
+
+        private void ShowLevelUpOptions()
+        {
+            // 레벨업 옵션 UI를 활성화
+        }
+
+        public void OnOptionSelected()
+        {
+            _isGamePaused = false;
+            // 선택 후 레벨업 UI 비활성화
         }
     }
 }
