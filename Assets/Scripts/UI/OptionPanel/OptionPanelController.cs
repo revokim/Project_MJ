@@ -14,7 +14,7 @@ namespace MJ.UI
         // GameOption 버튼을 할당할 변수
         public Button GameOptionButton;
         
-        void Start()
+        private void Start()
         {
             // OptionPanel이 없으면 찾고, 찾아서 static 변수에 할당
             if (OptionPanel == null)
@@ -42,7 +42,7 @@ namespace MJ.UI
         }
 
         // 버튼 클릭 시 OptionPanel을 비활성화하는 함수
-        void OnQuitButtonClicked()
+        private void OnQuitButtonClicked()
         {
             if (OptionPanel != null)
             {
@@ -50,7 +50,7 @@ namespace MJ.UI
             }
         }
         
-        void OnGameOptionButtonClicked()
+        private void OnGameOptionButtonClicked()
         {
             if (OptionPanel != null)
             {

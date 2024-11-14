@@ -12,13 +12,13 @@ namespace MJ.UI
         // ButtonQuit을 할당할 변수
         public Button ButtonQuit;
         
-        void Start()
+        private void Start()
         {
             // GameStartButton이 설정되었으면 클릭 이벤트를 추가
             if (GameStartButton != null)
             {
                 // 버튼의 클릭 이벤트에 메서드 연결
-                GameStartButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(OnGameStartButtonClicked);
+                GameStartButton.GetComponent<Button>().onClick.AddListener(OnGameStartButtonClicked);
             }
             
             // ButtonQuit이 설정되었으면 클릭 이벤트를 추가
@@ -29,13 +29,13 @@ namespace MJ.UI
         }
 
         // GameStartButton 클릭 시 CharacterScene으로 이동하는 함수
-        void OnGameStartButtonClicked()
+        private void OnGameStartButtonClicked()
         {
             // CharacterScene으로 전환
             SceneManager.LoadScene("CharacterScene");
         }
         
-        void OnQuitButtonClicked()
+        private void OnQuitButtonClicked()
         {
             // 게임 종료
             Debug.Log("게임 종료");
