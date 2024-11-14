@@ -7,9 +7,18 @@ namespace MJ.Weapon
 public class BulletPool : MonoBehaviour
 {
     public static BulletPool Instance;
-
-    // 각 무기 ID에 따른 총알 프리팹을 저장하는 Dictionary
-    public Dictionary<int, GameObject> bulletPrefabs = new Dictionary<int, GameObject>();
+    
+    // List로 변경하여 인스펙터에서 수동으로 등록
+    [System.Serializable]
+    public class BulletPrefab
+    {
+        public int weaponID;
+        public GameObject bulletPrefab;
+        public int initialPoolSize;  // 초기 풀 크기
+    }
+    
+    // 각 무기 ID에 따른 총알 프리팹을 저장하는 list
+    public List<BulletPrefab> bulletPrefabsList = new List<BulletPrefab>();
 
     // 각 무기 ID에 따른 총알 풀을 저장하는 Dictionary
     private Dictionary<int, Queue<GameObject>> bulletPools = new Dictionary<int, Queue<GameObject>>();
@@ -24,23 +33,15 @@ public class BulletPool : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void RegisterBulletPrefab(int weaponID, GameObject bulletPrefab, int poolSize = 20)
-    {
-        if (!bulletPrefabs.ContainsKey(weaponID))
+        foreach (var bulletPrefab in bulletPrefabsList)
         {
-            bulletPrefabs[weaponID] = bulletPrefab;
-
-            // 풀 생성
-            Queue<GameObject> bulletPool = new Queue<GameObject>();
-            for (int i = 0; i < poolSize; i++)
+            bulletPools[bulletPrefab.weaponID] = new Queue<GameObject>();
+            for (int i = 0; i < bulletPrefab.initialPoolSize; i++)
             {
-                GameObject bullet = Instantiate(bulletPrefab);
-                bullet.SetActive(false);
-                bulletPool.Enqueue(bullet);
+                GameObject bullet = Instantiate(bulletPrefab.bulletPrefab);
+                bullet.SetActive(false);  // 처음엔 비활성화
+                bulletPools[bulletPrefab.weaponID].Enqueue(bullet);  // 풀에 추가
             }
-            bulletPools[weaponID] = bulletPool;
         }
     }
 
@@ -48,20 +49,14 @@ public class BulletPool : MonoBehaviour
     {
         if (bulletPools.ContainsKey(weaponID) && bulletPools[weaponID].Count > 0)
         {
-            GameObject bullet = bulletPools[weaponID].Dequeue();
-            bullet.SetActive(true);
-            return bullet;
-        }
-        else if (bulletPrefabs.ContainsKey(weaponID))
-        {
-            GameObject bullet = Instantiate(bulletPrefabs[weaponID]);
-            bullet.SetActive(true);
+            GameObject bullet = bulletPools[weaponID].Dequeue();  // 풀에서 꺼냄
+            bullet.SetActive(true);  // 활성화
             return bullet;
         }
         else
         {
-            Debug.Log($"Bullet prefab for weapon ID '{weaponID}' not found!");
-            return null;
+            Debug.Log($"No bullets available in the pool for weapon ID {weaponID}");
+            return null;  // 풀에 총알이 없을 경우
         }
     }
 

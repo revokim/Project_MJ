@@ -4,12 +4,12 @@ using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEditor.TextCore.Text;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace MJ.Weapon
 {
-    // 모든 종류의 무기에 공통적으로 들어가는 요소들을 지정합니다.
     public class Weapon : MonoBehaviour
     {
         private int _weaponCategory; // 무기 유형
@@ -24,7 +24,7 @@ namespace MJ.Weapon
         public void Awake()
         {
             _attackDamage = 1.0f;
-            _weaponID = 0;
+            _weaponID = 2;
             AttackInterval = 1.0f;
         }
 
@@ -64,10 +64,10 @@ namespace MJ.Weapon
             BulletPool.Instance.ReturnBullet(0, bullet);
         }
 
-        public void CannonAttack()
+        public void CannonAttack() //대포 무기
         {
-            const int piercing = 5;
-            const float bulletSpeed = 10.0f;
+            const int piercing = 5; // 관통 횟수
+            const float bulletSpeed = 10.0f; //속도 변수
             Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized; // 랜덤 방향으로 발사
             GameObject bullet = BulletPool.Instance.GetBullet(_weaponID);
             bullet.GetComponent<Bullet>().Init(_weaponID, _attackDamage, piercing, bulletSpeed, randomDirection); // 총알 정보 전달
