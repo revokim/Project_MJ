@@ -47,10 +47,10 @@ public class BulletPool : MonoBehaviour
 
     public GameObject GetBullet(int weaponID)
     {
-        if (bulletPools.ContainsKey(weaponID) && bulletPools[weaponID].Count > 0)
+        if (bulletPools.TryGetValue(weaponID, out Queue<GameObject> pool) && pool.Count > 0)
         {
-            GameObject bullet = bulletPools[weaponID].Dequeue();  // 풀에서 꺼냄
-            bullet.SetActive(true);  // 활성화
+            GameObject bullet = pool.Dequeue();
+            bullet.SetActive(true);
             return bullet;
         }
         else
