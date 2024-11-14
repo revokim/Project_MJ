@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace MJ
 {
     public class GameManager : MonoBehaviour
     {
-        
         public static GameManager Instance;
         [Header("Game Control")]
         public float gameTime;
@@ -26,6 +25,7 @@ namespace MJ
         {
             StartGame();
         }
+
         public void StartGame()
         {
             // 게임 시작 이벤트 호출
