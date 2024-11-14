@@ -8,6 +8,7 @@ namespace MJ.UI
     {
         // ButtonBackward 버튼을 할당할 변수
         public Button buttonBackward;
+        public Button buttonStart;
 
         private void Start()
         {
@@ -16,12 +17,21 @@ namespace MJ.UI
             {
                 buttonBackward.onClick.AddListener(OnBackwardButtonClicked);
             }
+            if (buttonStart != null)
+            {
+                buttonStart.onClick.AddListener(OnStartButtonClicked);
+            }
         }
 
         // ButtonBackward 클릭 시 TitleScene으로 이동하는 함수
         private void OnBackwardButtonClicked()
         {
             SceneManager.LoadScene("TitleScene");
+        }
+
+        private void OnStartButtonClicked()
+        {
+            SceneManager.LoadScene("GameScene");
         }
     }
 }
