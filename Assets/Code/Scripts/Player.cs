@@ -9,7 +9,6 @@ namespace MJ.Player
         private float _playerHp; //체력
         private int _playerLevel; // 레벨
         private float _playerExp; // 경험치
-        
         private Rigidbody2D _rigidbody2D;
         private Vector3 _inputVec; // 인풋매니저 move 값
         private float _playerMoveSpeed; // 플레이어 이동 속도
