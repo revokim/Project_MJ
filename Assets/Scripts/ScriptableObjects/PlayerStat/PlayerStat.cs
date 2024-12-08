@@ -9,10 +9,10 @@ namespace MJ.Player
     [CreateAssetMenu(fileName = "PlayerStat", menuName = "Scriptable Object Asset/PlayerStat")]
     public class PlayerStat : ScriptableObject
     {
-        public float playerAttackPower = 10;
-        public float playerHp = 100;
+        public float playerAttackPower = 10f;
+        public float playerHp = 100f;
         public int playerLevel = 1;
         public float playerExp = 0;
-        public float playerMoveSpeed = 1; // [test]초기 이동속도, 테스트 필요
+        public float playerMoveSpeed = 5.0f; // [test]초기 이동속도, 테스트 필요
     }
 }
