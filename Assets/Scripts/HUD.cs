@@ -5,9 +5,17 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public enum InfoType {Exp, Level, Kill, Time, Health}
+    public enum InfoType
+    {
+        Exp,
+        Level,
+        Kill,
+        Time,
+        Health
+    }
+
     public InfoType type;
-    
+
     Text myText;
     Slider mySlider;
 
@@ -29,7 +37,8 @@ public class HUD : MonoBehaviour
             case InfoType.Level:
                 myText.text = string.Format("Lv. {0:D3}", GameManager.Instance.player.PlayerLevel);
                 break;
-            case InfoType.Kill: ;
+            case InfoType.Kill:
+                ;
                 break;
             case InfoType.Time:
                 TimeSpan timeSpan = TimeSpan.FromSeconds(GameManager.Instance.gameTime);
