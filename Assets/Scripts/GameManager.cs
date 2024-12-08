@@ -10,8 +10,7 @@ namespace MJ
 
         [Header("Game Control")]
         public float gameTime;
-
-        [Header("UI Elements")]
+        
         public GameObject expItemPrefab;
         public Transform expGenArea;
         public Player.Player player;
