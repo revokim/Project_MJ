@@ -12,7 +12,6 @@ namespace MJ
         public float gameTime;
 
         [Header("UI Elements")]
-        public TextMeshProUGUI timerText;
         public GameObject expItemPrefab;
         public Transform expGenArea;
         public Player.Player player;
@@ -34,16 +33,8 @@ namespace MJ
             if (!_isGamePaused)
             {
                 gameTime += Time.deltaTime;
-                UpdateTimerUI();
             }
         }
-
-        private void UpdateTimerUI()
-        {
-            TimeSpan timeSpan = TimeSpan.FromSeconds(gameTime);
-            timerText.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
-        }
-
         public void StartGame()
         {
             // 게임 시작 이벤트 호출
@@ -74,8 +65,6 @@ namespace MJ
 
             Instantiate(expItemPrefab, worldPosition, Quaternion.identity);
         }
-
-
         public void OnPlayerLevelUp()
         {
             _isGamePaused = true;

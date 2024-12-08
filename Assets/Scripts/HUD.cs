@@ -27,11 +27,13 @@ public class HUD : MonoBehaviour
                 mySlider.value = curExp / maxExp;
                 break;
             case InfoType.Level:
-                myText.text = $"Lv. {GameManager.Instance.player.playerLevel}";
+                myText.text = string.Format("Lv. {0:D3}", GameManager.Instance.player.playerLevel);
                 break;
             case InfoType.Kill: ;
                 break;
             case InfoType.Time:
+                TimeSpan timeSpan = TimeSpan.FromSeconds(GameManager.Instance.gameTime);
+                myText.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
                 break;
             case InfoType.Health:
                 break;
