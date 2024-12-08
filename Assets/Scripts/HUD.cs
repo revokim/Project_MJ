@@ -1,4 +1,5 @@
 using System;
+using MJ;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,9 @@ public class HUD : MonoBehaviour
         switch (type)
         {
             case InfoType.Exp:
+                float curExp = GameManager.Instance.player.playerExp;
+                float maxExp = GameManager.Instance.player.nextExp[GameManager.Instance.player.playerLevel];
+                mySlider.value = curExp / maxExp;
                 break;
             case InfoType.Level:
                 break;
