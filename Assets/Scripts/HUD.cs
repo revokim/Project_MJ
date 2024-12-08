@@ -22,12 +22,12 @@ public class HUD : MonoBehaviour
         switch (type)
         {
             case InfoType.Exp:
-                float curExp = GameManager.Instance.player.playerExp;
-                float maxExp = GameManager.Instance.player.nextExp[GameManager.Instance.player.playerLevel];
+                float curExp = GameManager.Instance.player.PlayerExp;
+                float maxExp = GameManager.Instance.player.nextExp[GameManager.Instance.player.PlayerLevel];
                 mySlider.value = curExp / maxExp;
                 break;
             case InfoType.Level:
-                myText.text = string.Format("Lv. {0:D3}", GameManager.Instance.player.playerLevel);
+                myText.text = string.Format("Lv. {0:D3}", GameManager.Instance.player.PlayerLevel);
                 break;
             case InfoType.Kill: ;
                 break;
@@ -36,6 +36,9 @@ public class HUD : MonoBehaviour
                 myText.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
                 break;
             case InfoType.Health:
+                float curHp = GameManager.Instance.player.PlayerHp;
+                float maxHp = GameManager.Instance.player.PlayerMaxHp;
+                mySlider.value = curHp / maxHp;
                 break;
         }
     }
