@@ -7,6 +7,7 @@ namespace MJ.Player
     public class Player : MonoBehaviour
     {
         private float _playerAttackPower; // 공격력
+        private float _playerMaxHp = 100; //최대체력
         private float _playerHp; //체력
         private int _playerLevel; // 레벨
         private float _playerExp; // 경험치
@@ -36,12 +37,11 @@ namespace MJ.Player
         public PlayerStat playerStat;
 
         // 플레이어 스탯 관련 프로퍼티
-        public float playerAttackPower { get; set; }
-        
-        public float playerHp
+        public float PlayerAttackPower { get; set; }
+        public float PlayerHp
         {
-            get { return _playerHp; }
-            set
+            get => _playerHp;
+            private set
             {
                 _playerHp = value; 
                 // 체력이 0 이하일 경우 사망 이벤트 호출
@@ -51,17 +51,10 @@ namespace MJ.Player
                 }
             }
         }
-        public int playerLevel
-        {
-            get => _playerLevel;
-            private set => _playerLevel = value;
-        }
-        public float playerExp
-        {
-            get => _playerExp;
-            private set => _playerExp = value;
-        }
-        public float playerMoveSpeed { get; set; }
+        public float PlayerMaxHp{ get; private set; }
+        public int PlayerLevel { get; private set; }
+        public float PlayerExp { get; private set; }
+        public float PlayerMoveSpeed { get; set; }
 
         private void InitializePlayerStats()
         {
@@ -69,7 +62,7 @@ namespace MJ.Player
             _playerAttackPower = playerStat.playerAttackPower;
             _playerLevel = playerStat.playerLevel;
             _playerExp = playerStat.playerExp;
-            _playerMoveSpeed = playerStat.playerMoveSpeed;
+            //_playerMoveSpeed = playerStat.playerMoveSpeed;
         }
 
         private void OnEnable()
@@ -92,13 +85,13 @@ namespace MJ.Player
         public void TakeDamage(int damage)
         {
             // 체력 감소
-            playerHp -= damage;
+            PlayerHp -= damage;
         }
         
         public void AddExp(float expAmount)
         {
-            playerExp += expAmount;
-            if (playerExp >= nextExp[playerLevel])
+            PlayerExp += expAmount;
+            if (PlayerExp >= nextExp[PlayerLevel])
             {
                 LevelUp();
             }
@@ -106,8 +99,8 @@ namespace MJ.Player
 
         private void LevelUp()
         {
-            playerLevel++;
-            playerExp = 0;
+            PlayerLevel++;
+            PlayerExp = 0;
 
             GameManager.Instance.OnPlayerLevelUp();
         }
