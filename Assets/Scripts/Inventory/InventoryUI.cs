@@ -20,6 +20,7 @@ namespace MJ.InventoryUI
             _inven = Inventory.Inventory.Instance;
             inventorySlots = inventorySlotHolder.GetComponentsInChildren<Slot.Slot>();
             bagSlots = bagSlotHolder.GetComponentsInChildren<Slot.Slot>();
+            
             _inven.onInventoryItemChanged += RedrawSlotUI;
             _inven.onInventorySlotCountChanged += InventorySlotChange;
             _inven.onInvetoryCursorChanged += RedrawCursorUI;

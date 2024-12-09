@@ -7,7 +7,7 @@ namespace MJ.ItemPickupManager
     public class ItemPickupManager : MonoBehaviour
     {
         private List<FieldItems.FieldItems> _itemsInScope; //주울 수 있는 범위 내에 들어온 무기 리스트
-        private GameObject _letterEIcon; //무기 
+        private GameObject _letterEIcon; //player 위에 키보드 아이콘
         private Inventory.Inventory _inven;
 
         private InventoryInputSystem _inventoryInputSystem;

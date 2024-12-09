@@ -87,8 +87,9 @@ namespace MJ.Inventory
         private void Start()
         {
             SelectedSlotNum = 0;
-            InventorySlotCount = 3;
             _bagSlotCount = 1;
+            InventorySlotCount = 3;
+            
         }
 
         public bool AddItemToInventory(CollectibleItem.CollectibleItem weapon)
@@ -175,16 +176,5 @@ namespace MJ.Inventory
         {
             if (_selectedSlotNum >= 0) SwapWeapons();
         }
-
-        // private void OnTriggerEnter2D(Collider2D collision) //(임시: 무기 줍기 구현안함) 무기에 닿으면 리스트에 추가
-        // {
-        //     if (!collision.CompareTag("FieldWeapon")) return;
-        //
-        //     var fielditems = collision.GetComponent<FieldItems>();
-        //     if (AddItemToInventory(fielditems.GetItem()))
-        //     {
-        //         fielditems.DestroyItem();
-        //     }
-        // }
     }
 }
