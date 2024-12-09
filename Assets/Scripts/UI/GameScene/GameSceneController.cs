@@ -24,6 +24,7 @@ namespace MJ.UI
             if (OptionPanelController.OptionPanel != null)
             {
                 OptionPanelController.OptionPanel.SetActive(true);
+                GameManager.Instance.PauseGame();
             }
         }
     }

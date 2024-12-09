@@ -46,6 +46,7 @@ namespace MJ.UI
         {
             if (OptionPanel != null)
             {
+                GameManager.Instance.ResumeGame();
                 OptionPanel.SetActive(false);
             }
         }
@@ -54,6 +55,7 @@ namespace MJ.UI
         {
             if (OptionPanel != null)
             {
+                GameManager.Instance.PauseGame();
                 OptionPanel.SetActive(true);
             }
         }

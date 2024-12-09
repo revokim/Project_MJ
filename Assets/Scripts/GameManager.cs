@@ -16,6 +16,8 @@ namespace MJ
 
         private bool _isGamePaused;
 
+        public bool IsGamePaused => _isGamePaused;
+
         private void Awake()
         {
             Instance = this;
@@ -45,11 +47,14 @@ namespace MJ
         public void PauseGame()
         {
             _isGamePaused = true;
+            Time.timeScale = 0f;
+            
         }
 
         public void ResumeGame()
         {
             _isGamePaused = false;
+            Time.timeScale = 1f;
         }
 
         public void GenerateExpItem()
