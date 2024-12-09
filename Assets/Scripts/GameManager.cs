@@ -14,10 +14,13 @@ namespace MJ
         public Transform expGenArea;
         public Player.Player player;
 
+        private int _totalCoins;
+        private int _roundCoins;
+        
         private bool _isGamePaused;
-
-        public bool IsGamePaused => _isGamePaused;
-
+        
+        public int RoundCoins => _roundCoins;
+        
         private void Awake()
         {
             Instance = this;
@@ -25,6 +28,8 @@ namespace MJ
 
         private void Start() // 인게임 시작 시 호출
         {
+            _totalCoins = 0;//임시 초기화
+            _roundCoins = 0;//임시 초기화
             StartGame();
         }
 

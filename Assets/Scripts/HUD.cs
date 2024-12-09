@@ -11,7 +11,8 @@ public class HUD : MonoBehaviour
         Level,
         Kill,
         Time,
-        Health
+        Health,
+        Money
     }
 
     public InfoType type;
@@ -48,6 +49,9 @@ public class HUD : MonoBehaviour
                 float curHp = GameManager.Instance.player.PlayerHp;
                 float maxHp = GameManager.Instance.player.PlayerMaxHp;
                 mySlider.value = curHp / maxHp;
+                break;
+            case InfoType.Money:
+                myText.text = string.Format("{0:D3}", GameManager.Instance.RoundCoins);
                 break;
         }
     }
